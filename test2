@@ -1,4 +1,5 @@
 #CHANGE
+#CHANGE2
 #Install Intune Graph Module
 Install-Module -Name Microsoft.Graph.Intune
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
