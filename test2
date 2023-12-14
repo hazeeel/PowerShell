@@ -1,5 +1,5 @@
 Install-Module microsoft.graph.intune
-
+Connect-MSGraph
 # '00000003-0000-0000-c000-000000000000' graph api
 $resourceAppId = '00000003-0000-0000-c000-000000000000'
 # list of all Graph permissions + description https://graphpermissions.merill.net/index.html
