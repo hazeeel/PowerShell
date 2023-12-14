@@ -1,5 +1,14 @@
-Install-Module microsoft.graph.intune
+#CHANGE
+#Install Intune Graph Module
+Install-Module -Name Microsoft.Graph.Intune
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+Import-Module Microsoft.Graph.Intune
+
+#Connect to Intune Graph API
 Connect-MSGraph
+
+#Get All Devices
+#Get-IntuneManagedDevice
 # '00000003-0000-0000-c000-000000000000' graph api
 $resourceAppId = '00000003-0000-0000-c000-000000000000'
 # list of all Graph permissions + description https://graphpermissions.merill.net/index.html
