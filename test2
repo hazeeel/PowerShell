@@ -1,0 +1,20 @@
+Install-Module microsoft.graph.intune
+
+# '00000003-0000-0000-c000-000000000000' graph api
+$resourceAppId = '00000003-0000-0000-c000-000000000000'
+# list of all Graph permissions + description https://graphpermissions.merill.net/index.html
+$permissionList = 'Device.Read.All', 'DeviceManagementApps.Read.All', 'DeviceManagementConfiguration.Read.All', 'DeviceManagementManagedDevices.Read.All', 'DeviceManagementRBAC.Read.All', 'DeviceManagementServiceConfig.Read.All'
+
+$MSI = (Get-AzureADServicePrincipal -Filter "displayName eq '$automationAccountDisplayName'")
+if (!$MSI) { throw "Automation account '$automationAccountDisplayName' doesn't exist" }
+$resourceSP = Get-AzureADServicePrincipal -Filter "appId eq '$resourceAppId'"
+if (!$resourceSP) { throw "Resource '$resourceAppId' doesn't exist" }
+foreach ($permission in $permissionList) {
+    $AppRole = $resourceSP.AppRoles | Where-Object { $_.Value -eq $permission -and $_.AllowedMemberTypes -contains "Application" }
+    if (!$AppRole) {
+        Write-Warning "Application permission '$permission' wasn't found in '$resourceAppId' application. Therefore it cannot be added."
+        continue
+    }
+
+    New-AzureADServiceAppRoleAssignment -ObjectId $MSI.ObjectId -PrincipalId $MSI.ObjectId -ResourceId $resourceSP.ObjectId -Id $AppRole.Id
+}
