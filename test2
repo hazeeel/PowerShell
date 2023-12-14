@@ -1,0 +1,14 @@
+#IMPORTANT
+#DO NOT USE OLD MSONLINE OR OLD GRAPH MODULES (MSONLINE, AZUREAD, MSGRAPH)
+#IMPORTANT
+
+#New MS Graph Authentication Module
+Install-Module Microsoft.Graph.Authentication
+#New MS Graph Device Management Module
+Install-Module Microsoft.Graph.DeviceManagement 
+
+#Connect to new Graph
+Connect-MgGraph
+
+#Get All Devices
+Get-MgDeviceManagementManagedDevice
